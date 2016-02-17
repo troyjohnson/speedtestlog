@@ -1,5 +1,6 @@
 # speedtestlog
-Uses speedtest-cli to get data and logger to output it in a Splunk-friendly format.
+Uses **speedtest-cli** to get connection speed data 
+and logger to output it in a *Splunk-friendly* format.
 
 Depends on having **speedtest-cli** installed here:
 ```
