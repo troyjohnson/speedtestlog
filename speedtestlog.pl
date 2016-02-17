@@ -11,6 +11,9 @@ my $logger_bin = '/usr/bin/logger';
 my $logger_pri = 'local5.info';
 my $logger_tag = 'SPEEDTEST';
 my $logger_args = "-p ${logger_pri} -t ${logger_tag}";
+my @errors = ();
+my $error_msg = "";
+my $log_msg = "";
 
 # get speedtest output
 my $speedtest_version =
@@ -31,13 +34,26 @@ my ($st_upload, $st_ul_units) =
 		m/Upload: (\d*\.?\d+) (\S+)/;
 
 # prepare log message
-my $log_msg = 'ping=\"' . $st_ping .
-	'\" ping_units=\"' . $st_p_units . 
-	'\" download=\"' . $st_download .
-	'\" download_units=\"' . $st_dl_units .
-	'\" upload=\"' . $st_upload .
-	'\" upload_units=\"' . $st_ul_units .
-	'\" version=\"' . $speedtest_version . '\" ';
+if (not defined $st_ping) { push(@errors, "st_ping"); }
+if (not defined $st_p_units) { push(@errors, "st_p_units"); }
+if (not defined $st_download) { push(@errors, "st_download"); }
+if (not defined $st_dl_units) { push(@errors, "st_dl_units"); }
+if (not defined $st_upload) { push(@errors, "st_upload"); }
+if (not defined $st_ul_units) { push(@errors, "st_ul_units"); }
+if (not defined $speedtest_version) { push(@errors, "speedtest_version"); }
+if (scalar(@errors) > 0) {
+	$log_msg = 'error=\"true\" notdefined=\"' . 
+		join(',', @errors) . '\" ';
+} 
+else {
+	$log_msg = 'ping=\"' . $st_ping .
+		'\" ping_units=\"' . $st_p_units . 
+		'\" download=\"' . $st_download .
+		'\" download_units=\"' . $st_dl_units .
+		'\" upload=\"' . $st_upload .
+		'\" upload_units=\"' . $st_ul_units .
+		'\" version=\"' . $speedtest_version . '\" ';
+}
 
 # send log message
 my $logger_cmd = "${logger_bin} ${logger_args} ${log_msg}";
