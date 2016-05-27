@@ -21,9 +21,9 @@ Feb 19 20:30:04 myhostname SPEEDTEST: error="true" notdefined="st_ping,st_p_unit
 ```
 
 There are a few searches that can easily pull this data together in Splunk:
-...
+```
 "SPEEDTEST:" | stats avg(download)
 "SPEEDTEST:" | stats avg(upload)
 "SPEEDTEST:" | stats avg(ping)
 "SPEEDTEST:" | timechart span=6h avg(ping) AS AveragePing avg(download) AS AverageDownload avg(upload) AS AverageUpload
-...
+```
