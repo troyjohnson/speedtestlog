@@ -10,7 +10,7 @@ as well as having **logger** available here:
 ```
   /usr/bin/logger
 ```
-(works with the Ubuntu 20.04 speedtest-cli package).
+works with the Ubuntu 20.04 **speedtest-cli** package.
 
 Produces output to syslog similar to what appears below when functional:
 ```
