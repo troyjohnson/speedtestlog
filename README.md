@@ -4,12 +4,13 @@ and logger to output it in a *Splunk-friendly* format.
 
 Depends on having **speedtest-cli** installed here:
 ```
-  /usr/local/bin/speedtest-cli
+  /usr/bin/speedtest-cli
 ```
 as well as having **logger** available here:
 ```
   /usr/bin/logger
 ```
+(works with the Ubuntu 20.04 speedtest-cli package).
 
 Produces output to syslog similar to what appears below when functional:
 ```

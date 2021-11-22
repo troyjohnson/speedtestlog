@@ -3,7 +3,8 @@
 # speedtestlog.pl
 
 # variables
-my $speedtestcli_bin = '/usr/local/bin/speedtest-cli';
+#my $speedtestcli_bin = '/usr/local/bin/speedtest_cli';
+my $speedtestcli_bin = '/usr/bin/speedtest-cli';
 my $speedtestcli_args = '--simple';
 my $speedtestcli_ver = '--version';
 my $redirect_stderr = '2>&1';
@@ -16,13 +17,16 @@ my $error_msg = "";
 my $log_msg = "";
 
 # get speedtest output
-my $speedtest_version =
+my $speedtest_version_output =
 	`${speedtestcli_bin} ${speedtestcli_ver} ${redirect_stderr}`;
-chomp($speedtest_version);
+chomp($speedtest_version_output);
 my $speedtest_output =
 	`${speedtestcli_bin} ${speedtestcli_args} ${redirect_stderr}`;
 
 # extract data from output using regexes
+my ($speedtest_version) =
+	$speedtest_version_output =~ 
+		m/(\d+\.\d+\.\d+)/;
 my ($st_ping, $st_p_units) =
 	$speedtest_output =~
 		m/Ping: (\d*\.?\d+) (\S+)/;
